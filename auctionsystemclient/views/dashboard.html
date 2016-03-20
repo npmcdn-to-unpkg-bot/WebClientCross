@@ -1,0 +1,78 @@
+﻿<div class="container">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="page-header">
+            </div>
+            <div class="bs-component">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 class="panel-title text-center">Player Stats <span class="pull-right"><a href="" ng-click="dc.signOut()"><i class="material-icons">power_settings_new</i></a></span></h1>
+                    </div>
+                    <div class="panel-body">
+                        <div style="height:30px;">Name  : {{dc.playerName}}</div>
+                        <div>Coins : {{dc.coins}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="page-header">
+            </div>
+            <div class="bs-component">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 class="panel-title text-center">Inventory</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="bs-component">
+                            <table class="table table-striped table-alternate table-hover ">
+                                <tbody>
+                                    <tr ng-repeat="item in dc.inventories">
+                                        <td>
+                                            <div class="text-center"><img ng-src="/img/{{item.Image}}" width="32" height="32" /></div>
+                                            <div class="text-center">{{item.Item}}</div>
+                                        </td>
+                                        <td class="vertical-center">
+                                            <div class="text-center">Quantity</div>
+                                            <div class="text-center">{{item.Quantity}}</div>
+                                        </td>
+                                        <td><button class="btn btn-primary btn-raised btn-xs pull-right" data-ng-click="dc.auction(item.Item, item.Quantity)">Auction</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="page-header">
+            </div>
+            <div class="bs-component">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h1 class="panel-title text-center">Current Auction</h1>
+                    </div>
+                    <div class="panel-body" ng-show="dc.message.Status == 'InProgress'">
+                        <div>Seller : {{dc.message.Username}}</div>
+                        <div>Item : {{dc.message.Item}}</div>
+                        <div>Quantity : {{dc.message.Quantity}}</div>
+                        <div>Time Left : {{dc.message.TimeLeft}}</div>
+                        <div><span ng-if="dc.message.Bidder">Winning Bid</span><span ng-if="!dc.message.Bidder">Minimum Bid</span> : {{dc.message.WinningBid}}</div>
+                        <input type="text" data-ng-model="dc.biddingAmount" />
+                        <div style="text-align: center"><a href="javascript:void(0)" data-ng-click="dc.bid(dc.biddingAmount)" class="btn btn-raised btn-success"><i class="material-icons">attach_money</i> Bid<div class="ripple-container"></div></a></div>
+                    </div>
+                    <div class="panel-body" ng-show="dc.message.Status == 'Completed'">
+                        <div>Winner : {{dc.message.Bidder}}</div>
+                    </div>
+                    <div class="panel-body" ng-hide="dc.message">
+                        <div class="text-center">No auction at the moment</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
